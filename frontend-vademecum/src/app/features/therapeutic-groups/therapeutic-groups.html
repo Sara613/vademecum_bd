@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h1>Gestión de Grupos Terapéuticos</h1>
+  <button class="add-btn" (click)='openCreateModal()'>+ Nuevo Grupo</button>
+</div>
+
+<div class="table-container" *ngIf="!isLoading()">
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let group of groups()">
+        <td>{{ group.name }}</td>
+        <td class="actions">
+          <button class="edit-btn" (click)="openEditModal(group)">✏️</button>
+          <button class="delete-btn" (click)="deleteGroup(group.id_therapeutic_group)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="isModalOpen()">
+  <div class="modal-content">
+    <h2>{{ isEditing() ? 'Editar Grupo' : 'Nuevo Grupo' }}</h2>
+    <form (ngSubmit)="saveGroup()" #groupForm="ngForm">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label>Nombre del Grupo</label>
+          <input type="text" name="name" [(ngModel)]="currentGroup.name" required>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="save-btn" [disabled]="!groupForm.valid">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

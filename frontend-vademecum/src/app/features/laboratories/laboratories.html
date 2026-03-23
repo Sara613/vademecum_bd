@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h1>Gestión de Laboratorios</h1>
+  <button class="add-btn" (click)='openCreateModal()'>+ Nuevo Laboratorio</button>
+</div>
+
+<div class="table-container" *ngIf="!isLoading()">
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let lab of laboratories()">
+        <td>{{ lab.name }}</td>
+        <td class="actions">
+          <button class="edit-btn" (click)="openEditModal(lab)">✏️</button>
+          <button class="delete-btn" (click)="deleteLab(lab.id_laboratory)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="isModalOpen()">
+  <div class="modal-content">
+    <h2>{{ isEditing() ? 'Editar Laboratorio' : 'Nuevo Laboratorio' }}</h2>
+    <form (ngSubmit)="saveLab()" #labForm="ngForm">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label>Nombre del Laboratorio</label>
+          <input type="text" name="name" [(ngModel)]="currentLab.name" required>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="save-btn" [disabled]="!labForm.valid">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

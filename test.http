@@ -1,0 +1,246 @@
+@baseUrl = http://localhost:5001/api
+
+### --- AUTENTICACIÓN ---
+
+# @name create_user
+POST {{baseUrl}}/auth/create
+Content-Type: application/json
+
+{
+    "identification": "12345678",
+    "password": "12345678",
+    "full_name": "Usuario de Prueba"
+}
+
+###
+
+# @name login_user
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "identification": "12345678",
+    "password": "mi-password-seguro"
+}
+
+### --- GRUPOS TERAPÉUTICOS ---
+
+# @name get_all_therapeutic_groups
+GET {{baseUrl}}/therapeutic-groups
+Content-Type: application/json
+
+###
+
+# @name create_therapeutic_group
+POST {{baseUrl}}/therapeutic-groups
+Content-Type: application/json
+
+{
+    "name": "Antibióticos"
+}
+
+###
+
+# @name get_therapeutic_group_by_id
+GET {{baseUrl}}/therapeutic-groups/1
+Content-Type: application/json
+
+###
+
+# @name update_therapeutic_group
+PUT {{baseUrl}}/therapeutic-groups/1
+Content-Type: application/json
+
+{
+    "name": "Antibióticos Actualizado"
+}
+
+###
+
+# @name delete_therapeutic_group
+DELETE {{baseUrl}}/therapeutic-groups/8
+Content-Type: application/json
+
+
+### --- FAMILIAS ---
+
+# @name get_all_families
+GET {{baseUrl}}/families
+Content-Type: application/json
+
+###
+
+# @name create_family
+POST {{baseUrl}}/families
+Content-Type: application/json
+
+{
+    "name": "Penicilinas",
+    "potential_illness": "Infecciones bacterianas",
+    "id_therapeutic_group": 1
+}
+
+###
+
+# @name get_family_by_id
+GET {{baseUrl}}/families/1
+Content-Type: application/json
+
+###
+
+# @name update_family
+PUT {{baseUrl}}/families/1
+Content-Type: application/json
+
+{
+    "name": "inhibidores de pared",
+    "id_therapeutic_group": 1
+}
+
+###
+
+# @name delete_family
+DELETE {{baseUrl}}/families/28
+Content-Type: application/json
+
+
+### --- LABORATORIOS ---
+
+# @name get_all_laboratories
+GET {{baseUrl}}/laboratories
+Content-Type: application/json
+
+###
+
+# @name create_laboratory
+POST {{baseUrl}}/laboratories
+Content-Type: application/json
+
+{
+    "name": "Pfizer"
+}
+
+###
+
+# @name update_laboratory
+PUT {{baseUrl}}/laboratories/1
+Content-Type: application/json
+
+{
+    "name": "Pfizer Inc."
+}
+
+###
+
+# @name delete_laboratory
+DELETE {{baseUrl}}/laboratories/1
+Content-Type: application/json
+
+
+### --- FORMAS FARMACÉUTICAS ---
+
+# @name get_all_pharmaceutical_forms
+GET {{baseUrl}}/pharmaceutical-forms
+Content-Type: application/json
+
+###
+
+# @name create_pharmaceutical_form
+POST {{baseUrl}}/pharmaceutical-forms
+Content-Type: application/json
+
+{
+    "name": "Tableta"
+}
+
+###
+
+# @name update_pharmaceutical_form
+PUT {{baseUrl}}/pharmaceutical-forms/1
+Content-Type: application/json
+
+{
+    "name": "Cápsula"
+}
+
+###
+
+# @name delete_pharmaceutical_form
+DELETE {{baseUrl}}/pharmaceutical-forms/1
+Content-Type: application/json
+
+
+### --- POSOLOGÍAS ---
+
+# @name get_all_posologies
+GET {{baseUrl}}/posologies
+Content-Type: application/json
+
+###
+
+# @name create_posology
+POST {{baseUrl}}/posologies
+Content-Type: application/json
+
+{
+    "name": "Tomar una tableta cada 8 horas por 7 días"
+}
+
+###
+
+# @name update_posology
+PUT {{baseUrl}}/posologies/1
+Content-Type: application/json
+
+{
+    "name": "Tomar una cápsula cada 12 horas por 10 días"
+}
+
+###
+
+# @name delete_posology
+DELETE {{baseUrl}}/posologies/1
+Content-Type: application/json
+
+
+### --- PRODUCTOS (DETAILS) ---
+
+# @name get_all_products
+GET {{baseUrl}}/products
+Content-Type: application/json
+
+###
+
+# @name create_product
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+    "commercial_name": "Amoxicilina Genfar",
+    "generic_name": "Amoxicilina",
+    "id_family": 1,
+    "action_mechanism": "Inhibe la síntesis de la pared celular bacteriana",
+    "id_laboratory": 1,
+    "concentration": "500mg",
+    "id_pharmaceutical_form": 1,
+    "id_posology": 1,
+    "notes": "No usar en alérgicos a la penicilina",
+    "is_active": true
+}
+
+###
+
+# @name update_product
+PUT {{baseUrl}}/products/1
+Content-Type: application/json
+
+{
+    "commercial_name": "Amoxicilina Genfar Forte",
+    "concentration": "750mg"
+}
+
+###
+
+# @name delete_product
+DELETE {{baseUrl}}/products/169
+Content-Type: application/json

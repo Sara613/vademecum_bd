@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h1>Gestión de Formas Farmacéuticas</h1>
+  <button class="add-btn" (click)='openCreateModal()'>+ Nueva Forma</button>
+</div>
+
+<div class="table-container" *ngIf="!isLoading()">
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let form of forms()">
+        <td>{{ form.name }}</td>
+        <td class="actions">
+          <button class="edit-btn" (click)="openEditModal(form)">✏️</button>
+          <button class="delete-btn" (click)="deleteForm(form.id_pharmaceutical_form)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="isModalOpen()">
+  <div class="modal-content">
+    <h2>{{ isEditing() ? 'Editar Forma' : 'Nueva Forma' }}</h2>
+    <form (ngSubmit)="saveForm()" #formForm="ngForm">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label>Nombre de la Forma</label>
+          <input type="text" name="name" [(ngModel)]="currentForm.name" required>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="save-btn" [disabled]="!formForm.valid">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="app-container" [class.sidebar-closed]="!isSidebarOpen()">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">💊</span>
+        <span class="logo-text">Vademécum</span>
+      </div>
+      <button class="toggle-btn" (click)="toggleSidebar()">
+        {{ isSidebarOpen() ? '◀' : '▶' }}
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a routerLink="/home/products" routerLinkActive="active">
+            <span class="icon">📦</span>
+            <span class="text">Productos</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/home/families" routerLinkActive="active">
+            <span class="icon">👪</span>
+            <span class="text">Familias</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/home/therapeutic-groups" routerLinkActive="active">
+            <span class="icon">🧬</span>
+            <span class="text">Grupos Terapéuticos</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/home/laboratories" routerLinkActive="active">
+            <span class="icon">🔬</span>
+            <span class="text">Laboratorios</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/home/pharmaceutical-forms" routerLinkActive="active">
+            <span class="icon">🧪</span>
+            <span class="text">Formas Farmacéuticas</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/home/posologies" routerLinkActive="active">
+            <span class="icon">📝</span>
+            <span class="text">Posologías</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info" *ngIf="isSidebarOpen()">
+        <span class="user-name">{{ userName() }}</span>
+      </div>
+      <button (click)="logout()" class="logout-btn">
+        <span class="icon">🚪</span>
+        <span class="text" *ngIf="isSidebarOpen()">Cerrar Sesión</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h1>Gestión de Posologías</h1>
+  <button class="add-btn" (click)='openCreateModal()'>+ Nueva Posología</button>
+</div>
+
+<div class="table-container" *ngIf="!isLoading()">
+  <table>
+    <thead>
+      <tr>
+        <th>Instrucción</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let posology of posologies()">
+        <td>{{ posology.name }}</td>
+        <td class="actions">
+          <button class="edit-btn" (click)="openEditModal(posology)">✏️</button>
+          <button class="delete-btn" (click)="deletePosology(posology.id_posology)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="isModalOpen()">
+  <div class="modal-content">
+    <h2>{{ isEditing() ? 'Editar Posología' : 'Nueva Posología' }}</h2>
+    <form (ngSubmit)="savePosology()" #posologyForm="ngForm">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label>Descripción de la Posología</label>
+          <textarea name="name" [(ngModel)]="currentPosology.name" required></textarea>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="save-btn" [disabled]="!posologyForm.valid">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

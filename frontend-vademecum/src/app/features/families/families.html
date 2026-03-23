@@ -1,0 +1,57 @@
+<div class="page-header">
+  <h1>Gestión de Familias</h1>
+  <button class="add-btn" (click)='openCreateModal()'>+ Nueva Familia</button>
+</div>
+
+<div class="table-container" *ngIf="!isLoading()">
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Enfermedad Potencial</th>
+        <th>Grupo Terapéutico</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let family of families()">
+        <td>{{ family.name }}</td>
+        <td>{{ family.potential_illness || 'N/A' }}</td>
+        <td>{{ getTherapeuticGroupName(family.id_therapeutic_group) }}</td>
+        <td class="actions">
+          <button class="edit-btn" (click)="openEditModal(family)">✏️</button>
+          <button class="delete-btn" (click)="deleteFamily(family.id_family)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="isModalOpen()">
+  <div class="modal-content">
+    <h2>{{ isEditing() ? 'Editar Familia' : 'Nueva Familia' }}</h2>
+    <form (ngSubmit)="saveFamily()" #familyForm="ngForm">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label>Nombre de la Familia</label>
+          <input type="text" name="name" [(ngModel)]="currentFamily.name" required>
+        </div>
+        <div class="form-group full-width">
+          <label>Enfermedad Potencial</label>
+          <textarea name="potential_illness" [(ngModel)]="currentFamily.potential_illness"></textarea>
+        </div>
+        <div class="form-group full-width">
+          <label>Grupo Terapéutico</label>
+          <select name="id_therapeutic_group" [(ngModel)]="currentFamily.id_therapeutic_group" required>
+            <option *ngFor="let g of therapeuticGroups()" [value]="g.id_therapeutic_group">{{ g.name }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="save-btn" [disabled]="!familyForm.valid">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
